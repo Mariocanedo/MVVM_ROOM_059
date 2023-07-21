@@ -59,7 +59,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application){
 
 
     // funcion para recibir una tarea seleccionada desde el Rv
-   fun selected(task: Task){
+   fun selected(task: Task?){
        // guarda lo que estamos seleccionando
        selectedTask.value= task
    }

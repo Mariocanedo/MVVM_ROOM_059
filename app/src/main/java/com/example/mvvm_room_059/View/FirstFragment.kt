@@ -74,6 +74,19 @@ class FirstFragment : Fragment() {
             )
         )
 
+
+        // button para ir y agregar una nueva tarea
+
+        binding.fab2.setOnClickListener{
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
+        }
+
+
+
+
+
+
         // cargar las tareas al RecyclerView
         viewModel.allTask.observe( viewLifecycleOwner,{
 
