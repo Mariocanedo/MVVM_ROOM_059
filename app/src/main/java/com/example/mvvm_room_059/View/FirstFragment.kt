@@ -1,12 +1,15 @@
 package com.example.mvvm_room_059.View
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm_room_059.Modelo.Model.Task
 import com.example.mvvm_room_059.R
 import com.example.mvvm_room_059.ViewModel.TaskViewModel
@@ -37,22 +40,58 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+
+/*
 
 
         val newTask= Task(
 
             title="BD59",
-            descripcion = "PRUEBA 059 20:31",
+            descripcion = "PRUEBA 059 20:32",
             date="20/07/2023",
             priority = 7,
             state = true
 
         )
+*/
 
-         viewModel.inserTask(newTask)
+         //viewModel.inserTask(newTask)
+
+
+        // referencia al adapter
+
+        val adapter = TaskAdapter()
+
+        binding.rvTask.adapter= adapter
+        binding.rvTask.layoutManager= LinearLayoutManager(context)
+
+        binding.rvTask.addItemDecoration(
+
+            DividerItemDecoration(
+
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
+        // cargar las tareas al RecyclerView
+        viewModel.allTask.observe( viewLifecycleOwner,{
+
+            it?.let {
+                adapter.update(it)
+            }
+        }
+        )
+
+        adapter.selectedItem().observe(viewLifecycleOwner,{
+
+            it?.let {
+
+                Log.d("Item Selected", it.id.toString())
+                viewModel.selected(it)
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            }
+        })
 
     }
 

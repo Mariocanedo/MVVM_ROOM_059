@@ -56,14 +56,18 @@ class TaskViewModel(application: Application): AndroidViewModel(application){
    // Para seleccionar algun Elemento
     private val selectedTask : MutableLiveData<Task?> = MutableLiveData()
 
-    // para seleccionar una tarea desde la vista por ej
-     fun selectedItem(): LiveData<Task?> = selectedTask
 
 
-
+    // funcion para recibir una tarea seleccionada desde el Rv
    fun selected(task: Task){
        // guarda lo que estamos seleccionando
        selectedTask.value= task
    }
+
+
+    // para mostrar los elementos luego de una seleccion Recibir  el objeto seleccionado
+    fun selectedItem(): LiveData<Task?> = selectedTask
+
+
 
 }
